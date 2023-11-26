@@ -24,8 +24,8 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let last = last.unwrap();
-                let next = next.unwrap();
+                let last = last.expect("Error");
+                let next = next.expect("Error");
 
                 let last_v;
                 let next_v;
@@ -85,8 +85,8 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let last = last.unwrap();
-                let next = next.unwrap();
+                let last = last.expect("Error");
+                let next = next.expect("Error");
 
                 let last_v;
                 let next_v;
@@ -146,8 +146,8 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let last = last.unwrap();
-                let next = next.unwrap();
+                let last = last.expect("Error");
+                let next = next.expect("Error");
 
                 let last_v;
                 let next_v;
@@ -207,8 +207,8 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let last = last.unwrap();
-                let next = next.unwrap();
+                let last = last.expect("Error");
+                let next = next.expect("Error");
 
                 let last_v;
                 let next_v;
@@ -262,7 +262,7 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let next = next.unwrap();
+                let next = next.expect("Error");
 
                 match next {
                     ParsedTokens::Var(var) => {
@@ -283,7 +283,7 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     process::exit(1);
                 }
 
-                let next = next.unwrap();
+                let next = next.expect("Error");
 
                 match next {
                     ParsedTokens::Var(var) => {

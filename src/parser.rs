@@ -50,7 +50,7 @@ pub fn parse_tokens(direct_tokens: &Vec<Token>) -> Vec<ParsedTokens> {
 
                     if let Some(t) = direct_tokens.get(index + 1) {
                         if let Token::Ws = t {
-                            let number: f64 = string.parse().unwrap();
+                            let number: f64 = string.parse().expect("Cannot parse data");
                             tokens.push(ParsedTokens::Number(number));
 
                             buffer = Vec::new();

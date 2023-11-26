@@ -44,13 +44,19 @@ pub fn parse_tokens(direct_tokens: &Vec<Token>) -> Vec<ParsedTokens> {
                         string.push(match buff {
                             Token::Char(c) => c.clone(),
                             Token::Pnt => '.',
+                            Token::Min => '-',
                             _ => 0 as char,
                         });
                     }
 
                     if let Some(t) = direct_tokens.get(index + 1) {
                         if let Token::Ws = t {
-                            let number: f64 = string.parse().expect("Cannot parse data");
+                            let is_neg = string.contains("-");
+                            let string = string.replace("-", "");
+                            let mut number: f64 = string.parse().expect("Cannot parse data");
+                            if is_neg {
+                                number = number * -1f64;
+                            }
                             tokens.push(ParsedTokens::Number(number));
 
                             buffer = Vec::new();
@@ -88,6 +94,7 @@ pub fn parse_tokens(direct_tokens: &Vec<Token>) -> Vec<ParsedTokens> {
             Token::Mpl => tokens.push(ParsedTokens::Mpl),
             Token::Equ => tokens.push(ParsedTokens::Equal),
             Token::Pnt => buffer.push(&Token::Pnt),
+            Token::Min => buffer.push(&Token::Min),
             Token::Nl => {},
             Token::Ws => {},
         }

@@ -1,3 +1,4 @@
+use std::process;
 
 #[derive(Debug)]
 pub enum Token {
@@ -10,13 +11,16 @@ pub enum Token {
     Char(char),
     Nl,
     Ws,
+    Min,
 }
 
 pub fn parse_to_tokens(data: String) -> Vec<Token> {
     let mut tokens = Vec::new();
 
-    for char in data.chars() {
-        if char == '\n' {
+    let chars = data.chars().collect::<Vec<char>>();
+
+    for (index, char) in chars.iter().enumerate() {
+        if *char == '\n' {
             tokens.push(Token::Nl);
             continue;
         }
@@ -26,12 +30,24 @@ pub fn parse_to_tokens(data: String) -> Vec<Token> {
         }
         match char {
             '+' => tokens.push(Token::Add),
-            '-' => tokens.push(Token::Sub),
+            '-' => {
+                let next = chars.get(index + 1);
+                if let Some(c) = next {
+                    if c.is_whitespace() {
+                        tokens.push(Token::Sub);
+                    } else {
+                        tokens.push(Token::Min);
+                    }
+                } else {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+            },
             '/' => tokens.push(Token::Div),
             '*' => tokens.push(Token::Mpl),
             '=' => tokens.push(Token::Equ),
             '.' => tokens.push(Token::Pnt),
-            _ => tokens.push(Token::Char(char))
+            _ => tokens.push(Token::Char(*char))
         }
     }
 

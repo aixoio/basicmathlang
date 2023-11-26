@@ -13,9 +13,9 @@ fn main() {
     let file_data = reader::read_file(args.get(1).unwrap()).unwrap_or_else(|err| {
         eprintln!("{err}");
         process::exit(1);
-    });
+    }) + "\n";
     let direct_tokens = tokens::parse_to_tokens(file_data);
     let parsered_tokens = parser::parse_tokens(&direct_tokens);
-
+    
     runner::run(&parsered_tokens);
 }

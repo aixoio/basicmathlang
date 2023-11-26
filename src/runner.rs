@@ -99,8 +99,7 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                                 last_v = val;
                             },
                             None => {
-                                eprintln!("Syntax error");
-                                process::exit(1);
+                                continue;
                             }
                         }
                     },

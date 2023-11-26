@@ -289,7 +289,7 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                     ParsedTokens::Var(var) => {
                         match vars.get(var) {
                             Some(val) => {
-                                println!("{}: {}", var, val);
+                                println!("{} = {}", var, val);
                             },
                             None => {
                                 eprintln!("Syntax error");

@@ -10,6 +10,8 @@ pub enum ParsedTokens {
     Div,
     Print,
     Equal,
+    Mod,
+    Power,
     Var(String),
 }
 
@@ -92,6 +94,8 @@ pub fn parse_tokens(direct_tokens: &Vec<Token>) -> Vec<ParsedTokens> {
             Token::Sub => tokens.push(ParsedTokens::Sub),
             Token::Div => tokens.push(ParsedTokens::Div),
             Token::Mpl => tokens.push(ParsedTokens::Mpl),
+            Token::Pow => tokens.push(ParsedTokens::Power),
+            Token::Mod => tokens.push(ParsedTokens::Mod),
             Token::Equ => tokens.push(ParsedTokens::Equal),
             Token::Pnt => buffer.push(&Token::Pnt),
             Token::Min => buffer.push(&Token::Min),

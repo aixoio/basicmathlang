@@ -253,6 +253,128 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
                 last_val = last_v * next_v;
 
             },
+            ParsedTokens::Mod => {
+                let last = tokens.get(index - 1);
+                let next = tokens.get(index + 1);
+
+                if let None = next {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+
+                if let None = last {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+
+                let last = last.expect("Error");
+                let next = next.expect("Error");
+
+                let last_v;
+                let next_v;
+
+                match last {
+                    ParsedTokens::Number(val) => last_v = val,
+                    ParsedTokens::Var(var) => {
+                        match vars.get(var) {
+                            Some(val) => {
+                                last_v = val;
+                            },
+                            None => {
+                                eprintln!("Syntax error");
+                                process::exit(1);
+                            }
+                        }
+                    },
+                    _ => {
+                        eprintln!("Syntax error");
+                        process::exit(1);
+                    },
+                }
+
+                match next {
+                    ParsedTokens::Number(val) => next_v = val,
+                    ParsedTokens::Var(var) => {
+                        match vars.get(var) {
+                            Some(val) => {
+                                next_v = val;
+                            },
+                            None => {
+                                eprintln!("Syntax error");
+                                process::exit(1);
+                            }
+                        }
+                    },
+                    _ => {
+                        eprintln!("Syntax error");
+                        process::exit(1);
+                    },
+                }
+
+                last_val = last_v % next_v;
+
+            },
+            ParsedTokens::Power => {
+                let last = tokens.get(index - 1);
+                let next = tokens.get(index + 1);
+
+                if let None = next {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+
+                if let None = last {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+
+                let last = last.expect("Error");
+                let next = next.expect("Error");
+
+                let last_v;
+                let next_v;
+
+                match last {
+                    ParsedTokens::Number(val) => last_v = val,
+                    ParsedTokens::Var(var) => {
+                        match vars.get(var) {
+                            Some(val) => {
+                                last_v = val;
+                            },
+                            None => {
+                                eprintln!("Syntax error");
+                                process::exit(1);
+                            }
+                        }
+                    },
+                    _ => {
+                        eprintln!("Syntax error");
+                        process::exit(1);
+                    },
+                }
+
+                match next {
+                    ParsedTokens::Number(val) => next_v = val,
+                    ParsedTokens::Var(var) => {
+                        match vars.get(var) {
+                            Some(val) => {
+                                next_v = val;
+                            },
+                            None => {
+                                eprintln!("Syntax error");
+                                process::exit(1);
+                            }
+                        }
+                    },
+                    _ => {
+                        eprintln!("Syntax error");
+                        process::exit(1);
+                    },
+                }
+
+                last_val = last_v.powf(*next_v);
+
+            },
             ParsedTokens::Equal => {
                 let next = tokens.get(index + 1);
                 let last = tokens.get(index - 1);

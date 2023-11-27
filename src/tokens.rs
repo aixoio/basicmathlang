@@ -6,6 +6,8 @@ pub enum Token {
     Sub,
     Div,
     Mpl,
+    Pow,
+    Mod,
     Equ,
     Pnt,
     Char(char),
@@ -47,6 +49,8 @@ pub fn parse_to_tokens(data: String) -> Vec<Token> {
             '*' => tokens.push(Token::Mpl),
             '=' => tokens.push(Token::Equ),
             '.' => tokens.push(Token::Pnt),
+            '^' => tokens.push(Token::Pow),
+            '%' => tokens.push(Token::Mod),
             _ => tokens.push(Token::Char(*char))
         }
     }

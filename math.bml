@@ -3,6 +3,10 @@
 x - -0.5 = y
 w = -2.1
 w + -1 = w
+5 % 2 = o
+3 ^ 2 = q
+print o
+print q
 print w
 print y
 print z

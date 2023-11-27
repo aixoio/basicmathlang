@@ -50,7 +50,7 @@ pub fn parse_tokens(direct_tokens: &Vec<Token>) -> Vec<ParsedTokens> {
                     }
 
                     if let Some(t) = direct_tokens.get(index + 1) {
-                        if let Token::Ws = t {
+                        if let Token::Ws | Token::Nl = t {
                             let is_neg = string.contains("-");
                             let string = string.replace("-", "");
                             let mut number: f64 = string.parse().expect("Cannot parse data");

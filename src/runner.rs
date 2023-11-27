@@ -255,17 +255,29 @@ pub fn run(tokens: &Vec<ParsedTokens>) {
             },
             ParsedTokens::Equal => {
                 let next = tokens.get(index + 1);
+                let last = tokens.get(index - 1);
 
                 if let None = next {
                     eprintln!("Syntax error");
                     process::exit(1);
                 }
 
+                if let None = last {
+                    eprintln!("Syntax error");
+                    process::exit(1);
+                }
+
                 let next = next.expect("Error");
+                let last = last.expect("Error");
 
                 match next {
                     ParsedTokens::Var(var) => {
                         vars.insert(var.clone(), last_val);
+                    },
+                    ParsedTokens::Number(n) => {
+                        if let ParsedTokens::Var(var) = last {
+                            vars.insert(var.clone(), n.clone());
+                        }
                     },
                     _ => {
                         eprintln!("Syntax error");

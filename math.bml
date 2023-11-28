@@ -9,4 +9,6 @@ print o
 print q
 print w
 print y
+# this is a comment
+#also this
 print z

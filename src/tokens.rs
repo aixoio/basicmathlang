@@ -21,9 +21,18 @@ pub fn parse_to_tokens(data: String) -> Vec<Token> {
 
     let chars = data.chars().collect::<Vec<char>>();
 
+    let mut skip_line = false;
+
     for (index, char) in chars.iter().enumerate() {
         if *char == '\n' {
+            if skip_line {
+                skip_line = false;
+                continue;
+            }
             tokens.push(Token::Nl);
+            continue;
+        }
+        if skip_line {
             continue;
         }
         if char.is_whitespace() {
@@ -31,6 +40,7 @@ pub fn parse_to_tokens(data: String) -> Vec<Token> {
             continue;
         }
         match char {
+            '#' => skip_line = true,
             '+' => tokens.push(Token::Add),
             '-' => {
                 let next = chars.get(index + 1);
